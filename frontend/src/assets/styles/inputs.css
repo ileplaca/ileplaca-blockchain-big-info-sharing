@@ -1,0 +1,11 @@
+.form-input-block {
+  @apply flex flex-col mt-4
+}
+
+.form-input {
+  @apply px-2 py-1 border text-lg outline-none rounded-button focus:border-primary duration-75 text-black
+}
+
+.form-label {
+  @apply text-subtext font-light text-lg
+}
