@@ -13,7 +13,12 @@ const DatasPasswordCheckForm: FC<DatasPasswordCheckerFormProps> = ({ setData }) 
 
   return (
     <div>
-      <form onSubmit={(e) => handleOnSubmit(e)}>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleOnSubmit();
+        }}
+      >
         <input
           disabled={loading}
           onChange={(e) => setValue(e.target.value)}

@@ -1,19 +1,23 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { bigDataSharingActions } from 'smart-contracts/big-data-sharing/actions';
 import { DatasPasswordCheckerFormProps } from './datas-password-check-form';
 
 const useDatasPasswordCheckForm = ({ setData }: DatasPasswordCheckerFormProps) => {
-  const { data_id } = useParams();
+  const { data_id, password } = useParams();
 
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState(password ?? '');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [isDataSet, setIsDataSet] = useState(false);
 
-  const handleOnSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  useEffect(() => {
+    if (password) {
+      handleOnSubmit();
+    }
+  }, []);
 
+  const handleOnSubmit = async () => {
     if (isDataSet) {
       return;
     }
@@ -22,9 +26,9 @@ const useDatasPasswordCheckForm = ({ setData }: DatasPasswordCheckerFormProps) =
 
     try {
       const data = await bigDataSharingActions.getDataById(data_id as unknown as string, value);
-      console.log("🚀 ~ file: use-datas-password-check-form.ts:25 ~ handleOnSubmit ~ data:", data)
       setData(data);
       setIsDataSet(true);
+      setError('');
     } catch (err) {
       setIsDataSet(false);
       console.log(err);

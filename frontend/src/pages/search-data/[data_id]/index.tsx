@@ -6,7 +6,7 @@ const DataPage: FC = () => {
   const [data, setData] = useState<DataWithPassword | null>(null);
 
   return (
-    <main className="flex flex-col items-center w-full gap-4 p-2 mt-20">
+    <main className="flex flex-col items-center w-full gap-4 p-2 mt-24">
       <h1 className="flex flex-col text-4xl font-medium text-center">
         Enter the password assigned to this data.
         <span className="text-lg font-light">If you are owner you can just click check button</span>

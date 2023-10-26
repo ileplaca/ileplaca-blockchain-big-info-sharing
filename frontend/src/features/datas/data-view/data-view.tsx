@@ -15,9 +15,9 @@ const DataView: FC<DataViewProps> = ({ data }) => {
       <h2 className="text-3xl font-bold">ID {Number(id)}</h2>
       <h3 className="text-sm font-light">{owner_address}</h3>
       <div className="mt-4 text-3xl font-medium">{name}</div>
-      <div className="text-lg font-light">Created {parseDateFns(Number(created_at))}</div>
+      <div className="text-lg font-light">{parseDateFns(Number(created_at))}</div>
       <div>{Number(expiration_date) !== 0 ? parseDateFns(Number(expiration_date)) : null}</div>
-      <div className="text-lg">{content}</div>
+      <div className="text-lg whitespace-pre-line">{content}</div>
     </div>
   );
 };

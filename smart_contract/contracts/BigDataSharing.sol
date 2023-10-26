@@ -5,9 +5,9 @@ import "./Helpers.sol";
 import "./BigDataSharingStructs.sol";
 
 contract BigDataSharing {
-    uint256 data_id = 0;
-
-    BigDataSharingStructs.Data[] datas;
+    uint256 private data_id = 0;
+    
+    BigDataSharingStructs.Data[] private datas;
 
     mapping(uint256 => string) private datas_password;
     mapping(uint256 => string) private datas_content;

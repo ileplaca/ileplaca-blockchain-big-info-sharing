@@ -1,1 +1,3 @@
-export const a = 0;
+export const copy = (value: string) => {
+  navigator.clipboard.writeText(value);
+};

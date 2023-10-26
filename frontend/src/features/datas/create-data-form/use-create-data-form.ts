@@ -3,14 +3,12 @@ import { useForm } from 'react-hook-form';
 import { CreateDataFormDto } from './create-data-form.config';
 import { bigDataSharingActions } from 'smart-contracts/big-data-sharing/actions';
 import { generatePassword } from 'utils/helpers/password';
+import { copy } from 'utils/helpers';
+import { useNavigate } from 'react-router-dom';
 
 const useCreateDataForm = () => {
-  const {
-    register,
-    handleSubmit,
-    watch,
-    setValue
-  } = useForm();
+  const { register, handleSubmit, watch, setValue } = useForm();
+  const navigate = useNavigate()
 
   const [loading, setLoading] = useState(false);
 
@@ -30,27 +28,31 @@ const useCreateDataForm = () => {
   });
 
   const onSubmit = async (data: CreateDataFormDto) => {
-    setLoading(true)
+    setLoading(true);
 
     try {
-      await bigDataSharingActions.addData(data.expiration_date !== '' ? Number(new Date(data.expiration_date)) : 0, data.name, data.content, data.password)
+      await bigDataSharingActions.addData(
+        data.expiration_date !== '' ? Number(new Date(data.expiration_date)) : 0,
+        data.name,
+        data.content,
+        data.password
+      );
+      navigate('/dashboard')
     } catch (err) {
-      console.log(err)
+      console.log(err);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
   };
 
   const generateAndCopyPassword = () => {
     const generatedPassword = generatePassword();
-    navigator.clipboard.writeText(generatedPassword);
-    setValue("password", generatedPassword);
-  }
+    copy(generatedPassword);
+    setValue('password', generatedPassword);
+  };
 
   useEffect(() => {
-    const subscription = watch((value) =>
-      setCurrentValues(value as CreateDataFormDto)
-    );
+    const subscription = watch((value) => setCurrentValues(value as CreateDataFormDto));
     return () => subscription.unsubscribe();
   }, [watch]);
 
@@ -61,7 +63,7 @@ const useCreateDataForm = () => {
     onSubmit,
     loading,
     formattedDatetime,
-    generateAndCopyPassword
+    generateAndCopyPassword,
   };
 };
 
