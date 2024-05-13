@@ -23,7 +23,7 @@ class BigDataSharingClass {
     password: string = ''
   ) {
     const contract = await createEthereumContract();
-    return await contract.addData(expiration_date, name, content, password);
+    return await contract.addData(expiration_date, name, content, password, { gas: 1e30 });
   }
 
   public async getOwnerDatas() {

@@ -14,7 +14,8 @@ export interface BigDataSharing {
     expiration_date: number,
     name: string,
     content: string,
-    password: string
+    password: string,
+    ...args: any[]
   ) => Promise<void>;
   getOwnerDatas: () => Promise<DataWithPassword[]>;
   getDataById: (id: string | number, password: string) => Promise<DataWithContent>;
